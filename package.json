@@ -1,5 +1,5 @@
 {
-  "name": "jhecht-util",
+  "name": "jhecht-util-mono",
   "private": true,
   "scripts": {
     "build": "turbo build",

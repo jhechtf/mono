@@ -3,5 +3,9 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "lnf.aliases": {
+    "$/": "${workspaceRoot}/",
+    "$packages/": "${workspaceRoot}/packages/"
+  }
 }
