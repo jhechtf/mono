@@ -1,0 +1,23 @@
+{
+  "name": "@jhechtf/eslint-plugin",
+  "version": "1.0.1",
+  "description": "Personally preferred eslint-plugin",
+  "main": "./dist/index.js",
+  "author": "jhechtf<jhechtf+npm@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest",
+    "lint": "eslint .",
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.56.1",
+    "eslint": "^7.11.0",
+    "eslint-plugin-eslint-plugin": "^2.3.0",
+    "tsup": "^8.0.1",
+    "vitest": "^1.1.3"
+  },
+  "dependencies": {
+    "eslint-rule-composer": "^0.3.0"
+  }
+}
