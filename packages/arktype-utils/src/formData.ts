@@ -29,7 +29,10 @@ export function formDataToObject(
 
       if (all.length === 1) {
         // regular stuff
-        ret[key] = typeof all[0] === 'string' ? stringToJSValue(all[0]) : all[0];
+        if(typeof all[0] === 'string') 
+          ret[key] = stringToJSValue(all[0]);
+        else if (all[0] instanceof File)
+          ret[key] = all[0]
       } else {
         if (pruneKeyNames && /\[.?\]/.test(key)) {
           key = key.replace(/\[.?\]/, '');

@@ -11,8 +11,10 @@
     "build": "tsup src/index.ts --format cjs,esm --dts"
   },
   "devDependencies": {
+    "@jhechtf/typescript-config": "workspace:*",
     "arktype": "^1.0.28-alpha",
     "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
     "vitest": "^1.1.3"
   },
   "peerDependencies": {

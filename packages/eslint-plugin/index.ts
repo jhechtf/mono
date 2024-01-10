@@ -1,5 +1,6 @@
 import maxStaticDestructureDepth from './lib/rules/max-static-destructure-depth';
 import preferDestructuring from './lib/rules/prefer-destructuring';
+
 export default {
   rules: {
     'max-static-destructure-depth': maxStaticDestructureDepth,
@@ -16,7 +17,7 @@ export default {
         node: true,
       },
       parserOptions: {
-        ecmaVersion: 2018
+        ecmaVersion: 2020
       },
       rules: {
         semi: ['error', 'always'],
