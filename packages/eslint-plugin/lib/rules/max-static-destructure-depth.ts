@@ -2,7 +2,7 @@
  * @fileoverview Maximum allowable static destructure depth
  * @author Core Fabrications
  */
-"use strict";
+'use strict';
 import type { Rule } from 'eslint';
 
 //------------------------------------------------------------------------------
@@ -12,28 +12,29 @@ import type { Rule } from 'eslint';
 export default {
   meta: {
     messages: {
-      maximumDepthBreach: 'Destructure depth of {{actual}} exceeds maximum allowed of {{allowed}}'
+      maximumDepthBreach:
+        'Destructure depth of {{actual}} exceeds maximum allowed of {{allowed}}',
     },
     docs: {
-      description: "Fuck you",
-      category: "Fill me in",
-      recommended: false
+      description: 'Fuck you',
+      category: 'Fill me in',
+      recommended: false,
     },
-    fixable: null,  // or "code" or "whitespace"
+    fixable: null, // or "code" or "whitespace"
     schema: [
       {
         oneOf: [
           {
-            type: "integer",
-            minimum: 1
-          }
-        ]
-      }
-    ]
+            type: 'integer',
+            minimum: 1,
+          },
+        ],
+      },
+    ],
   },
   /**
-   * 
-   * @param {import('eslint').Rule.RuleContext} context 
+   *
+   * @param {import('eslint').Rule.RuleContext} context
    */
   create: function (context) {
     const { getSourceCode, options } = context;
@@ -42,7 +43,10 @@ export default {
 
     return {
       VariableDeclarator(node) {
-        if (node.id.type === 'ObjectPattern' && node.init.type === 'MemberExpression') {
+        if (
+          node.id.type === 'ObjectPattern' &&
+          node.init.type === 'MemberExpression'
+        ) {
           const sourceText = sourceCode.getText(node.init);
           const sourceDepth = sourceText.split('.').length;
           if (sourceDepth > depth) {
@@ -51,12 +55,12 @@ export default {
               messageId: 'maximumDepthBreach',
               data: {
                 actual: sourceDepth.toString(),
-                allowed: depth
-              }
+                allowed: depth,
+              },
             });
           }
         }
-      }
+      },
     };
-  }
+  },
 } satisfies Rule.RuleModule;

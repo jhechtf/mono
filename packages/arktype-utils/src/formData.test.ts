@@ -1,15 +1,11 @@
-import {
-  expect, describe, it
-} from 'vitest';
+import { expect, describe, it } from 'vitest';
 import { formDataToObject, validateFormData } from './formData.js';
 import { type } from 'arktype';
 
-
 describe('formDataToObject', () => {
-  
   it('Should parse empty formData object', () => {
     const obj = formDataToObject(new FormData());
-    expect(Object.keys(obj).length).toBe(0)
+    expect(Object.keys(obj).length).toBe(0);
   });
 
   it('Should work on basic string data', () => {
@@ -17,7 +13,7 @@ describe('formDataToObject', () => {
     fd.append('name', 'bob');
     fd.append('surname', 'surbob');
     const obj = formDataToObject(fd);
-    expect(obj).toStrictEqual({ name: 'bob', surname: 'surbob'});
+    expect(obj).toStrictEqual({ name: 'bob', surname: 'surbob' });
   });
 
   it('Should work for mixed types', () => {
@@ -26,7 +22,7 @@ describe('formDataToObject', () => {
     fd.append('surname', 'surbob');
     fd.append('age', '52');
     const obj = formDataToObject(fd);
-    expect(obj).toStrictEqual({name: 'bob', surname: 'surbob', age: 52});
+    expect(obj).toStrictEqual({ name: 'bob', surname: 'surbob', age: 52 });
 
     fd.append('universe', 'true');
     const obj2 = formDataToObject(fd);
@@ -57,7 +53,6 @@ describe('formDataToObject', () => {
       explicitNotation: 103n,
       implicitBig: 9007199254740992n,
     });
-    
   });
 
   it('Should work with the filter function', () => {
@@ -67,7 +62,7 @@ describe('formDataToObject', () => {
     fd.append('surname', 'surbob');
 
     const obj = formDataToObject(fd, ([key]) => key !== 'notAllowed');
-    expect(obj).toStrictEqual({name: 'bob', surname: 'surbob'});
+    expect(obj).toStrictEqual({ name: 'bob', surname: 'surbob' });
   });
 
   it('Should work with repeated items', () => {
@@ -76,7 +71,7 @@ describe('formDataToObject', () => {
     fd.append('names', 'jerome');
     fd.append('names', 'phteven');
     expect(formDataToObject(fd)).toStrictEqual({
-      names: ['bob', 'jerome', 'phteven']
+      names: ['bob', 'jerome', 'phteven'],
     });
   });
 });
@@ -85,7 +80,7 @@ describe('validateFormData', () => {
   it('Validates simple object', () => {
     const schema = type({
       name: 'string',
-      surname: 'string'
+      surname: 'string',
     });
     const fd = new FormData();
     fd.append('name', 'bob');
@@ -93,15 +88,14 @@ describe('validateFormData', () => {
 
     const obj = validateFormData(fd, schema);
 
-    expect(obj).toStrictEqual({name: 'bob', surname: 'surbob'});
+    expect(obj).toStrictEqual({ name: 'bob', surname: 'surbob' });
 
     const wontPassSchema = type({
       name: 'number',
-      surname: 'Set'
+      surname: 'Set',
     });
 
     expect(() => validateFormData(fd, wontPassSchema)).toThrow();
-
   });
 
   it('Validates a more complex schema', () => {
@@ -124,12 +118,11 @@ describe('validateFormData', () => {
     expect(obj).toStrictEqual({
       emails: ['jim@jim.jim', 'bob@bob.email'],
       something: true,
-      'something-else': 101n
+      'something-else': 101n,
     });
 
     fd.append('emails', 'bad@');
 
     expect(() => validateFormData(fd, passSchema)).toThrow();
-
   });
 });

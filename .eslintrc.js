@@ -1,11 +1,11 @@
 // This configuration only applies to the package manager root.
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  ignorePatterns: ["apps/**", "packages/**"],
+  ignorePatterns: ["apps/**"],
   plugins: [
-    "@jhechtf/esling-plugin"
+    "@jhechtf"
   ],
-  extends: ["@jhechtf/recommended"],
+  extends: ["plugin:@jhechtf/recommended"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: true,

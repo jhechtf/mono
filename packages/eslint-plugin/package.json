@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "vitest",
-    "lint": "eslint .",
+    "lint": "eslint **/*.ts",
     "build": "tsup"
   },
   "devDependencies": {

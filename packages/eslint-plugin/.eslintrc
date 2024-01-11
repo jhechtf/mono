@@ -1,15 +1,11 @@
 {
   "extends": [
-    "eslint:recommended",
-    "plugin:@jhechtf/recommended"
+    "eslint:recommended"
   ],
   "env": {
     "es6": true,
     "node": true
   },
-  "plugins": [
-    "@jhechtf/eslint-plugin"
-  ],
   "rules": {
     "no-unused-vars": [
       "error",
