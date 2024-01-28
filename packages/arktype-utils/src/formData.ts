@@ -30,10 +30,8 @@ export function formDataToObject(
         if (typeof all[0] === 'string') ret[key] = stringToJSValue(all[0]);
         else if (all[0] instanceof File) ret[key] = all[0];
       } else {
-        if (pruneKeyNames && /\[.?\]/.test(key)) {
-          key = key.replace(/\[.?\]/, '');
-        }
-        ret[key] = all.map((v) =>
+        if (pruneKeyNames && /\[.?\]/.test(key)) key = key.replace(/\[.?\]/, '');
+        ret[key] = all.map(v =>
           typeof v === 'string' ? stringToJSValue(v) : v,
         );
       }
@@ -52,9 +50,7 @@ type NonFileFormEntries<T> = T extends File ? never : T;
  * @returns
  */
 function stringToJSValue(str: string): NonFileFormEntries<FormDataObjectEntry> {
-  if (/^(?:\+|-)?\d+(?:\.\d+)?$/.test(str) && str < '9007199254740991') {
-    return Number(str);
-  }
+  if (/^(?:\+|-)?\d+(?:\.\d+)?$/.test(str) && str < '9007199254740991') return Number(str);
 
   if (/^true|false$/.test(str)) return str === 'true';
 

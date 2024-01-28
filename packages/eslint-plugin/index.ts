@@ -1,7 +1,8 @@
 import maxStaticDestructureDepth from './lib/rules/max-static-destructure-depth';
 import preferDestructuring from './lib/rules/prefer-destructuring';
+import type { ESLint } from 'eslint';
 
-export default {
+const plugin: ESLint.Plugin = {
   rules: {
     'max-static-destructure-depth': maxStaticDestructureDepth,
     'prefer-destructuring': preferDestructuring,
@@ -37,3 +38,5 @@ export default {
     },
   },
 };
+
+export default plugin;
