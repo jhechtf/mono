@@ -9,7 +9,7 @@
     "prettier:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "publish-packages": "turbo run build lint test && changeset version && changeset publish",
     "test": "turbo run test",
-    "test:changed": "turbo run --filter[HEAD^1] test"
+    "test:changed": "turbo run --filter=[main...HEAD] test:ci"
   },
   "devDependencies": {
     "@jhechtf/eslint-plugin": "workspace:*",
