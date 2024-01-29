@@ -26,7 +26,7 @@ export function formDataToObject(
     if (filterFn([key, ''])) {
       const all = fd.getAll(key);
 
-      if (all.length === 1) {
+      if (all.length === 1 && !key.endsWith('[]')) {
         // regular stuff
         if (typeof all[0] === 'string') ret[key] = stringToJSValue(all[0]);
         else if (all[0] instanceof File) ret[key] = all[0];
