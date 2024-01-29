@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
         name: Install PNPM
         with:
