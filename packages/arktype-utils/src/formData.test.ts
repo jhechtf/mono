@@ -73,9 +73,8 @@ describe('formDataToObject', () => {
     expect(formDataToObject(fd)).toStrictEqual({
       names: ['bob', 'jerome', 'phteven'],
     });
-
   });
-  
+
   it('Should force array for keys that end in []', () => {
     const fd = new FormData();
     fd.append('names[]', 'bob');
@@ -85,7 +84,6 @@ describe('formDataToObject', () => {
       names: ['bob'],
       ages: [13],
     });
-
   });
 });
 
