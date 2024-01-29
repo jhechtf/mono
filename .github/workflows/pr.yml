@@ -44,4 +44,5 @@ jobs:
         with:
           node-version: '18.x'
       - run: pnpm i --frozen-lockfile
+      - run: pnpm build
       - run: pnpm lint
