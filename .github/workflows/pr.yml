@@ -9,8 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          # Need this to be able to run turbo in compare mode
           fetch-depth: 0
-      - run: git fetch origin main:main && git branch -l && git diff main...HEAD
+        # pulls stuff down
+      - run: git fetch origin main:main
       - uses: pnpm/action-setup@v2
         name: Install PNPM
         with:
