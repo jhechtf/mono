@@ -11,7 +11,7 @@ jobs:
         with:
           ref: main
       - uses: actions/checkout@v4
-      - run: git branch
+      - run: git branch -l
       - uses: pnpm/action-setup@v2
         name: Install PNPM
         with:
