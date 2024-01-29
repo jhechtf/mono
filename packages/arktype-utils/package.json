@@ -7,7 +7,8 @@
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --coverage",
+    "test:ci": "vitest run --coverage --changed",
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "eslint src/**/*.ts"
   },
@@ -18,6 +19,7 @@
     "@jhechtf/eslint-plugin": "workspace:*",
     "@jhechtf/typescript-config": "workspace:*",
     "@vitest/browser": "^1.2.0",
+    "@vitest/coverage-v8": "^1.2.2",
     "arktype": "^1.0.28-alpha",
     "eslint": "^7.11.0",
     "tsup": "^8.0.1",

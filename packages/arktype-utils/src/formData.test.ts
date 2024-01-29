@@ -74,6 +74,25 @@ describe('formDataToObject', () => {
       names: ['bob', 'jerome', 'phteven'],
     });
   });
+
+  it('Should force array for keys that end in []', () => {
+    const fd = new FormData();
+    fd.append('names[]', 'bob');
+    fd.append('ages[]', '13');
+
+    expect(formDataToObject(fd)).toStrictEqual({
+      names: ['bob'],
+      ages: [13],
+    });
+  });
+
+  it('Should work with File objects', () => {
+    const fd = new FormData();
+    fd.set('file', new File([], 'testing.txt'));
+
+    const obj = formDataToObject(fd);
+    expect(obj.file).toBeInstanceOf(File);
+  });
 });
 
 describe('validateFormData', () => {
