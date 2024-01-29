@@ -1,23 +1,32 @@
 {
   "name": "@jhechtf/eslint-plugin",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Personally preferred eslint config with a customn rule",
   "main": "./dist/index.js",
   "author": "jhechtf<jhechtf+npm@gmail.com>",
   "license": "MIT",
   "scripts": {
     "test": "vitest",
+    "prelint": "pnpm build",
     "lint": "eslint **/*.ts",
-    "build": "tsup"
+    "build": "tsup",
+    "build:tsc": "tsc index.ts"
   },
   "devDependencies": {
+    "@jhechtf/typescript-config": "workspace:*",
     "@types/eslint": "^8.56.1",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
     "eslint": "^7.11.0",
     "eslint-plugin-eslint-plugin": "^2.3.0",
     "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
     "vitest": "^1.1.3"
   },
   "dependencies": {
     "eslint-rule-composer": "^0.3.0"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/parser": "^6.18.1"
   }
 }

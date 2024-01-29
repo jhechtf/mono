@@ -1,0 +1,10 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@jhechtf/eslint-plugin"
+  ],
+  "extends": [
+    "plugin:@jhechtf/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ]
+}

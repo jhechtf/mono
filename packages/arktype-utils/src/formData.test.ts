@@ -113,8 +113,6 @@ describe('validateFormData', () => {
 
     const obj = validateFormData(fd, passSchema);
 
-    console.info(obj);
-
     expect(obj).toStrictEqual({
       emails: ['jim@jim.jim', 'bob@bob.email'],
       something: true,

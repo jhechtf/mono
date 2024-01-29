@@ -9,7 +9,7 @@ import type { Rule } from 'eslint';
 // Rule Definition
 //------------------------------------------------------------------------------
 
-export default {
+const maxStaticDepth: Rule.RuleModule = {
   meta: {
     messages: {
       maximumDepthBreach:
@@ -20,7 +20,6 @@ export default {
       category: 'Fill me in',
       recommended: false,
     },
-    fixable: null, // or "code" or "whitespace"
     schema: [
       {
         oneOf: [
@@ -32,11 +31,7 @@ export default {
       },
     ],
   },
-  /**
-   *
-   * @param {import('eslint').Rule.RuleContext} context
-   */
-  create: function (context) {
+  create: function (context: Rule.RuleContext) {
     const { getSourceCode, options } = context;
     const sourceCode = getSourceCode();
     const [depth = 2] = options;
@@ -45,9 +40,11 @@ export default {
       VariableDeclarator(node) {
         if (
           node.id.type === 'ObjectPattern' &&
+          node.init &&
           node.init.type === 'MemberExpression'
         ) {
           const sourceText = sourceCode.getText(node.init);
+          // eslint-disable-next-line @jhechtf/prefer-destructuring
           const sourceDepth = sourceText.split('.').length;
           if (sourceDepth > depth) {
             context.report({
@@ -63,4 +60,6 @@ export default {
       },
     };
   },
-} satisfies Rule.RuleModule;
+};
+
+export default maxStaticDepth;

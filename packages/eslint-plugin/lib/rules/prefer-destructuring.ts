@@ -1,13 +1,12 @@
 import ruleComposer from 'eslint-rule-composer';
 import { Linter } from 'eslint';
 
-// Base rule
 const preferDestructuring = new Linter().getRules().get('prefer-destructuring');
 
-// New rule.
 export default ruleComposer.filterReports(
   preferDestructuring,
-  (problem, _metadata) => {
+  // eslint-disable-next-line
+  (problem: any) => {
     if (
       problem.messageId === 'preferDestructuring' &&
       problem.node.type === 'VariableDeclarator'
