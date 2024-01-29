@@ -1,3 +1,4 @@
+
 import { expect, describe, it } from 'vitest';
 import { formDataToObject, validateFormData } from './formData.js';
 import { type } from 'arktype';
@@ -73,6 +74,19 @@ describe('formDataToObject', () => {
     expect(formDataToObject(fd)).toStrictEqual({
       names: ['bob', 'jerome', 'phteven'],
     });
+
+    const fd2 = new FormData();
+    fd2.append('names[]', 'bob');
+    expect(formDataToObject(fd2)).toStrictEqual({
+      names: ['bob']
+    });
+
+    fd2.append('names[]', 'jerome');
+    fd2.append('names[]', 'phteven');
+    expect(formDataToObject(fd2)).toStrictEqual({
+      names: ['bob', 'jerome', 'phteven'],
+    })
+
   });
 });
 

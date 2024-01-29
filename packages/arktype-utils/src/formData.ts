@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/no-unused-vars */
 import type { Problems, Type } from 'arktype';
 
 type EntriesTouple = [string, FormDataEntryValue];
@@ -26,13 +26,14 @@ export function formDataToObject(
     if (filterFn([key, ''])) {
       const all = fd.getAll(key);
 
-      if (all.length === 1) {
+      if (all.length === 1 && !key.endsWith('[]')) {
         // regular stuff
         if (typeof all[0] === 'string') ret[key] = stringToJSValue(all[0]);
         else if (all[0] instanceof File) ret[key] = all[0];
       } else {
-        if (pruneKeyNames && /\[.?\]/.test(key))
+        if (pruneKeyNames && /\[.?\]/.test(key)) {
           key = key.replace(/\[.?\]/, '');
+        }
         ret[key] = all.map((v) =>
           typeof v === 'string' ? stringToJSValue(v) : v,
         );
@@ -52,8 +53,9 @@ type NonFileFormEntries<T> = T extends File ? never : T;
  * @returns
  */
 function stringToJSValue(str: string): NonFileFormEntries<FormDataObjectEntry> {
-  if (/^(?:\+|-)?\d+(?:\.\d+)?$/.test(str) && str < '9007199254740991')
+  if (/^(?:\+|-)?\d+(?:\.\d+)?$/.test(str) && str < '9007199254740991') {
     return Number(str);
+  }
 
   if (/^true|false$/.test(str)) return str === 'true';
 
@@ -71,12 +73,10 @@ function stringToJSValue(str: string): NonFileFormEntries<FormDataObjectEntry> {
  * @throws {Problems}
  * @returns
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function validateFormData<T extends Type<any>>(
+export function formDataValidObject<T extends Type<any>>(
   fd: FormData,
   obj: T,
   filterFn?: FilterFn,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): T extends Type<infer R> ? R : any {
   const fdo = formDataToObject(fd, filterFn);
   const { data, problems } = obj(fdo);
@@ -85,3 +85,6 @@ export function validateFormData<T extends Type<any>>(
 
   throw problems;
 }
+
+// Need to rename this function, don't have the energy to do it now.
+export const validateFormData = formDataValidObject;
