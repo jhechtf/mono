@@ -1,6 +1,6 @@
 {
   "name": "@jhechtf/eslint-plugin",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Personally preferred eslint config with a customn rule",
   "main": "./dist/index.js",
   "author": "jhechtf<jhechtf+npm@gmail.com>",

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Problems, Type } from 'arktype';
 
 type EntriesTouple = [string, FormDataEntryValue];
@@ -73,6 +74,7 @@ export function validateFormData<T extends Type<any>>(
   fd: FormData,
   obj: T,
   filterFn?: FilterFn,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): T extends Type<infer R> ? R : any {
   const fdo = formDataToObject(fd, filterFn);
   const { data, problems } = obj(fdo);

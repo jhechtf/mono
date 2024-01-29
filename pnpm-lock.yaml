@@ -39,6 +39,9 @@ importers:
       arktype:
         specifier: ^1.0.28-alpha
         version: 1.0.28-alpha
+      eslint:
+        specifier: ^7.11.0
+        version: 7.11.0
       tsup:
         specifier: ^8.0.1
         version: 8.0.1(typescript@5.3.3)

@@ -4,7 +4,7 @@ import { type } from 'arktype';
 
 describe('Validators', () => {
   it('Works as expected', () => {
-    let values = validateObject({ a: 'hi' }, type({ a: 'string>=2' }));
+    const values = validateObject({ a: 'hi' }, type({ a: 'string>=2' }));
     expect(values).toStrictEqual({
       a: 'hi'
     });
