@@ -7,7 +7,7 @@
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --coverage",
     "test:ci": "vitest run --coverage --changed",
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "eslint src/**/*.ts"

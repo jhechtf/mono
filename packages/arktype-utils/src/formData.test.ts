@@ -85,6 +85,14 @@ describe('formDataToObject', () => {
       ages: [13],
     });
   });
+
+  it('Should work with File objects', () => {
+    const fd = new FormData();
+    fd.set('file', new File([], 'testing.txt'));
+
+    const obj = formDataToObject(fd);
+    expect(obj.file).toBeInstanceOf(File);
+  });
 });
 
 describe('validateFormData', () => {
