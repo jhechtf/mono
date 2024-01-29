@@ -4,6 +4,7 @@ import type { Type } from 'arktype';
 export function validateObject<T extends Type<any>>(
   obj: unknown,
   validator: T,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): T extends Type<infer R> ? R : any {
   const { data, problems } = validator(obj);
 

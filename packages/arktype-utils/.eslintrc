@@ -6,5 +6,8 @@
   "extends": [
     "plugin:@jhechtf/recommended",
     "plugin:@typescript-eslint/recommended"
-  ]
+  ],
+  "rules": {
+    "arrow-parens": ["warn", "always"]
+  }
 }

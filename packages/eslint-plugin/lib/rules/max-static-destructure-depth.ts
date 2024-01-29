@@ -44,6 +44,7 @@ const maxStaticDepth: Rule.RuleModule = {
           node.init.type === 'MemberExpression'
         ) {
           const sourceText = sourceCode.getText(node.init);
+          // eslint-disable-next-line @jhechtf/prefer-destructuring
           const sourceDepth = sourceText.split('.').length;
           if (sourceDepth > depth) {
             context.report({
