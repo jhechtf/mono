@@ -9,7 +9,7 @@ import type { Rule } from 'eslint';
 // Rule Definition
 //------------------------------------------------------------------------------
 
-const maxStaticDepth: Rule.RuleModule =  {
+const maxStaticDepth: Rule.RuleModule = {
   meta: {
     messages: {
       maximumDepthBreach:

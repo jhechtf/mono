@@ -6,8 +6,10 @@ describe('Validators', () => {
   it('Works as expected', () => {
     const values = validateObject({ a: 'hi' }, type({ a: 'string>=2' }));
     expect(values).toStrictEqual({
-      a: 'hi'
+      a: 'hi',
     });
-    expect(() => validateObject({ a: 'hi' }, type({ a: 'string>=3' }))).toThrow();
+    expect(() =>
+      validateObject({ a: 'hi' }, type({ a: 'string>=3' })),
+    ).toThrow();
   });
 });
