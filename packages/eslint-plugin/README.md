@@ -4,8 +4,8 @@
 
 This plugin currently provides the following custom rules
 
-1. [@jhechtf/max-static-destructure-depth](#max-static-destructure-depth)
-2. [@jhechtf/prefer-destructuring](#prefer-destructuring)
+1. [@jhecht/max-static-destructure-depth](#max-static-destructure-depth)
+2. [@jhecht/prefer-destructuring](#prefer-destructuring)
 
 ### max-static-destructure-depth
 
@@ -33,7 +33,7 @@ To change the maximum in your own ESLint config, simply add a line to your `rule
 
 ```json
 "rules": {
-  "@jhechtf/max-static-destructure-depth": ["error", 4]
+  "@jhecht/max-static-destructure-depth": ["error", 4]
 }
 ```
 
@@ -45,9 +45,9 @@ This is a carbon-copy of the ESLint [prefer-destructuring](https://eslint.org/do
 
 This plugin currently provides the following custom configs. **Note** Unless otherwise stated, these extend the `eslint:recommended` configuration.
 
-1. plugin:@jhechtf/recommended
+1. plugin:@jhecht/recommended
 
-### @jhechtf/recommended
+### @jhecht/recommended
 
 The recommended rule profile has the following values
 
@@ -63,8 +63,8 @@ curly: ['error', 'multi-or-nest'],
 'arrow-body-style': ['error', 'as-needed'],
 // If we don't need arrow parenthesis, we won't add them
 'arrow-parens': ['error', 'as-needed'],
-'@jhechtf/max-static-destructure-depth': ['error', 2]
-'@jhechtf/prefer-destructuring': ['error', { array: true, object: true }, { enforceForRenamedProperties: true }]
+'@jhecht/max-static-destructure-depth': ['error', 2]
+'@jhecht/prefer-destructuring': ['error', { array: true, object: true }, { enforceForRenamedProperties: true }]
 ```
 
 ## License

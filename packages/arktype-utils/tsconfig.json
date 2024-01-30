@@ -1,5 +1,5 @@
 {
-  "extends": "@jhechtf/typescript-config/base.json",
+  "extends": "@jhecht/typescript-config/base.json",
   "compilerOptions": {
     "esModuleInterop": true,
     "target": "es2020"

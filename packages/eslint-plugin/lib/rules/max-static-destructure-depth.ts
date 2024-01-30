@@ -1,6 +1,6 @@
 /**
  * @fileoverview Maximum allowable static destructure depth
- * @author Core Fabrications
+ * @author @jhechtf
  */
 'use strict';
 import type { Rule } from 'eslint';
@@ -44,7 +44,7 @@ const maxStaticDepth: Rule.RuleModule = {
           node.init.type === 'MemberExpression'
         ) {
           const sourceText = sourceCode.getText(node.init);
-          // eslint-disable-next-line @jhechtf/prefer-destructuring
+          // eslint-disable-next-line @jhecht/prefer-destructuring
           const sourceDepth = sourceText.split('.').length;
           if (sourceDepth > depth) {
             context.report({
