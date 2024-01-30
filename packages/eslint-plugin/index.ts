@@ -9,7 +9,7 @@ const plugin = {
   },
   configs: {
     recommended: {
-      plugins: ['@jhechtf/eslint-plugin'],
+      plugins: ['@jhecht/eslint-plugin'],
       extends: 'eslint:recommended',
       env: {
         es6: true,
@@ -28,8 +28,8 @@ const plugin = {
         curly: ['error', 'multi-or-nest'],
         'arrow-body-style': ['error', 'as-needed'],
         'arrow-parens': ['error', 'as-needed'],
-        '@jhechtf/max-static-destructure-depth': ['error', 2],
-        '@jhechtf/prefer-destructuring': [
+        '@jhecht/max-static-destructure-depth': ['error', 2],
+        '@jhecht/prefer-destructuring': [
           'error',
           { array: true, object: true },
           { enforceForRenamedProperties: true },

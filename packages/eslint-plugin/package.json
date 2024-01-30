@@ -1,5 +1,5 @@
 {
-  "name": "@jhechtf/eslint-plugin",
+  "name": "@jhecht/eslint-plugin",
   "version": "1.0.0",
   "description": "Personally preferred eslint config with a customn rule",
   "main": "./dist/index.js",
@@ -13,7 +13,7 @@
     "build:tsc": "tsc index.ts"
   },
   "devDependencies": {
-    "@jhechtf/typescript-config": "workspace:*",
+    "@jhecht/typescript-config": "workspace:*",
     "@types/eslint": "^8.56.1",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
