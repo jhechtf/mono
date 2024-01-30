@@ -5,6 +5,10 @@
   "main": "./dist/index.js",
   "author": "jhechtf<jhechtf+npm@gmail.com>",
   "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "vitest",
     "prelint": "pnpm build",
