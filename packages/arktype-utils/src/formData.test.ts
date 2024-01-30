@@ -96,6 +96,7 @@ describe('formDataToObject', () => {
 });
 
 describe('validateFormData', () => {
+  const fileType = type(['instanceof', File]);
   it('Validates simple object', () => {
     const schema = type({
       name: 'string',
@@ -118,16 +119,19 @@ describe('validateFormData', () => {
   });
 
   it('Validates a more complex schema', () => {
+    const f = new File([], 'file.txt');
     const fd = new FormData();
     fd.append('emails', 'jim@jim.jim');
     fd.append('emails', 'bob@bob.email');
     fd.append('something', 'true');
     fd.append('something-else', '101n');
+    fd.append('file-upload', f);
 
     const passSchema = type({
       emails: 'email[]',
       something: 'boolean',
       'something-else': 'bigint',
+      'file-upload': fileType,
     });
 
     const obj = validateFormData(fd, passSchema);
@@ -136,6 +140,7 @@ describe('validateFormData', () => {
       emails: ['jim@jim.jim', 'bob@bob.email'],
       something: true,
       'something-else': 101n,
+      'file-upload': f,
     });
 
     fd.append('emails', 'bad@');
