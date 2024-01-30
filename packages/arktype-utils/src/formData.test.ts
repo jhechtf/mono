@@ -1,6 +1,6 @@
 import { expect, describe, it } from 'vitest';
 import { formDataToObject, validateFormData } from './formData.js';
-import { instanceOf, type } from 'arktype';
+import { type } from 'arktype';
 
 describe('formDataToObject', () => {
   it('Should parse empty formData object', () => {
