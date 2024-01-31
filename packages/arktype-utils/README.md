@@ -2,9 +2,9 @@
 
 [ArkType](https://www.npmjs.com/package/arktype) is a TypeScript validator that delivers highly optimized validators.
 
-I created some wrappers around ArkType's validators. 
+I created some wrappers around ArkType's validators.
 
-***This is still an early version, the shape might change. I will attempt to keep a nice deprecation path.***
+**_This is still an early version, the shape might change. I will attempt to keep a nice deprecation path._**
 
 ## Turning FormData into an object
 
@@ -13,7 +13,7 @@ This is a helper method, primarily for Node-based backends that need to turn `Fo
 **NOTE**: This does _no_ validation, it just turns the values into an object
 
 ```ts
-import { formDataToObject } from '@jhecht/arktype-utils'
+import { formDataToObject } from '@jhecht/arktype-utils';
 
 const fd = new FormData();
 fd.append('name', 'Bob');
@@ -35,7 +35,6 @@ const obj = formDataToObject(fd);
 
 // { name: ['Bob', 'John']}
 console.info(obj);
-
 ```
 
 This method all does it's best guess for JSON-parsible values, including BigInt
@@ -80,14 +79,17 @@ const fd = new FormData();
 // Assume `fd` is gotten from the request body here
 
 try {
-  const obj = validateFormData(fd, type({
-    name: 'string>=2',
-    age: '13<=number',
-    favoriteMovies: 'string[]',
-  }));
+  const obj = validateFormData(
+    fd,
+    type({
+      name: 'string>=2',
+      age: '13<=number',
+      favoriteMovies: 'string[]',
+    }),
+  );
   // If this code is ran we know that the value of the `fd` variables passes the above validations when turned into an object
   console.info(obj);
-} catch(e) {
+} catch (e) {
   // If we end up here, `e` will be the `Problems` object returned by ArkType's validator
   console.error(e);
 }
