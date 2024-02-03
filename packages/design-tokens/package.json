@@ -1,0 +1,36 @@
+{
+  "name": "@jhecht/design-tokens",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./",
+  "type": "module",
+  "exports": {
+    "default": "./dist/index.js",
+    "require": "./dist/index.cjs",
+    "types": "./dist/index.d.ts",
+    "node": "./dist/index.js",
+    "import": "./dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "vitest --coverage",
+    "test:ci": "vitest run --changed --coverage --reporter=html",
+    "build": "tsup src/index.ts"
+  },
+  "keywords": [
+    "design syste"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "@vitest/coverage-v8": "^1.2.2",
+    "@vitest/ui": "^1.2.2",
+    "postcss": "^8.4.33",
+    "tsup": "^8.0.1",
+    "vitest": "^1.1.3"
+  }
+}
