@@ -3,8 +3,5 @@ export function camelCase(str: string): string {
 }
 
 export function normalizeCssQuery(str: string): string {
-  return str.replace(
-    /(.*?):\s?(.*)/g,
-    (_, a, b) => `${a}: ${b}`,
-  );
+  return str.replace(/(.*?):\s?(.*)/g, (_, a, b) => `${a}: ${b}`);
 }

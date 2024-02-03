@@ -8,9 +8,7 @@ describe('Stylesheet class', () => {
   it('Should output a blank stylesheet', () => {
     const sheet = new Stylesheet();
     const output = sheet.build();
-    expect(
-      Object.values(output)
-    ).toHaveLength(3);
+    expect(Object.values(output)).toHaveLength(3);
 
     expect(output.js).not.toBeUndefined();
     expect(output.css).not.toBeUndefined();
@@ -19,7 +17,6 @@ describe('Stylesheet class', () => {
     expect(output.js).toBe('');
     expect(output.css.replace(/\n/g, '')).toBe(':root {}');
     expect(output.scss).toBe('');
-
   });
 
   it('should work with some values', () => {
@@ -29,7 +26,9 @@ describe('Stylesheet class', () => {
 
     const output = styles.build();
 
-    expect(output.js).toStrictEqual('export const colorPrimary = \'var(--color-primary)\';\n');
+    expect(output.js).toStrictEqual(
+      "export const colorPrimary = 'var(--color-primary)';\n",
+    );
     expect(output.css).toBe(':root {\n  --color-primary: blue;\n}\n\n');
     expect(output.scss).toBe('\n$color-primary: blue !default;');
   });
@@ -45,7 +44,9 @@ describe('Stylesheet class', () => {
 
     const output = styles.build();
 
-    expect(output.js).toBe('export const colorPrimary = \'var(--color-primary)\';\n');
+    expect(output.js).toBe(
+      "export const colorPrimary = 'var(--color-primary)';\n",
+    );
 
     expect(output.css).toContain('--color-primary: blue');
     const parsedCss = postcss.parse(output.css);
@@ -54,9 +55,9 @@ describe('Stylesheet class', () => {
     expect(parsedCss.nodes[0].type).toBe('rule');
     expect(parsedCss.nodes[0]).toHaveProperty('nodes');
 
-    const [
-      decl
-    ] = (parsedCss.nodes[0] as postcss.Rule).nodes as [postcss.Declaration];
+    const [decl] = (parsedCss.nodes[0] as postcss.Rule).nodes as [
+      postcss.Declaration,
+    ];
 
     expect(decl.type).toBe('decl');
     expect(decl.prop).toBe('--color-primary');
@@ -72,6 +73,32 @@ describe('Stylesheet class', () => {
 
     expect(mediaRuleDecl.prop).toBe('--color-primary');
     expect(mediaRuleDecl.value).toBe('red');
+  });
 
+  it('Works with nested tokens', () => {
+    const stylesheet = new Stylesheet();
+    const blueToken = new Token('blue', 'blue');
+    const primaryToken = new Token('primary', blueToken);
+
+    stylesheet.addTokens(undefined, blueToken, primaryToken);
+
+    const output = stylesheet.build();
+
+    const parsedCss = postcss.parse(output.css);
+    expect(parsedCss.first.type).toBe('rule');
+    if (parsedCss.first.type !== 'rule') throw new Error('nope');
+    expect(parsedCss.first.selector).toBe(':root');
+
+    expect(parsedCss.first.nodes).toHaveLength(2);
+    const [blueNode, primaryNode] = parsedCss.first.nodes as [
+      postcss.Declaration,
+      postcss.Declaration,
+    ];
+    expect(blueNode.type).toBe('decl');
+    expect(primaryNode.type).toBe('decl');
+    expect(blueNode.prop).toBe('--color-blue');
+    expect(blueNode.value).toBe('blue');
+    expect(primaryNode.prop).toBe('--color-primary');
+    expect(primaryNode.value).toBe('var(--color-blue)');
   });
 });

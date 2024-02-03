@@ -23,7 +23,7 @@ export class Stylesheet implements TokenConsumer {
   }
 
   addSelectors(...args: Selector[]) {
-    args.forEach(sel => this.addSelector(sel));
+    args.forEach((sel) => this.addSelector(sel));
     return this;
   }
 
@@ -35,7 +35,7 @@ export class Stylesheet implements TokenConsumer {
 
   addTokens(selector: Selector = this.#root, ...tokens: Token[]) {
     if (!this.selectors.has(selector)) this.selectors.add(selector);
-    tokens.forEach(token => selector.addToken(token));
+    tokens.forEach((token) => selector.addToken(token));
     return this;
   }
 
@@ -55,29 +55,26 @@ export class Stylesheet implements TokenConsumer {
 
   buildCss() {
     let output = '';
-    for (const selector of this.selectors.values()) 
-      output += selector.build();
-    
+    for (const selector of this.selectors.values()) output += selector.build();
+
     output += '\n\n';
     for (const mq of this.queries.values()) {
-      if (mq.hasTokens()) 
-        output += mq.build() + '\n';
-      
+      if (mq.hasTokens()) output += mq.build() + '\n';
     }
     return output;
   }
 
   buildJs() {
     let output = '';
-    for (const token of this.#root.tokens.values()) 
+    for (const token of this.#root.tokens.values())
       output += token.toJsToken() + ';\n';
-    
+
     return output;
   }
 
   buildScss() {
     let output = '';
-    for(const token of this.#root.tokens.values())
+    for (const token of this.#root.tokens.values())
       output += `\n$${token.getCssKey().slice(2)}: ${token.value} !default;`;
     return output;
   }

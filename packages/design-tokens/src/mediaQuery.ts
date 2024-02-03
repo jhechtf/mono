@@ -12,9 +12,9 @@ export class MediaQuery implements Buildable, TokenConsumer {
     public screenOnly = false,
   ) {
     const normalized = normalizeCssQuery(query);
-    if(MediaQuery.queries.has(`${normalized}_${screenOnly}`)) 
+    if (MediaQuery.queries.has(`${normalized}_${screenOnly}`))
       return MediaQuery.queries.get(normalized) as MediaQuery;
-    
+
     MediaQuery.queries.set(`${normalized}_${screenOnly}`, this);
     this.query = normalized;
   }

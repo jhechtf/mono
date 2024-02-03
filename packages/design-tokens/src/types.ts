@@ -9,5 +9,5 @@ export interface TypeMap {
 export type Config = TypeMap & {
   variants?: {
     [query: string]: TypeMap;
-  }
+  };
 };

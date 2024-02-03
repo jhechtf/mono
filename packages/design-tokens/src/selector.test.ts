@@ -22,16 +22,16 @@ describe('Selector class', () => {
 
     expect(output).toContain('--color-primary: value;');
     expect(output).toContain('--size-secondary: 10px');
-
   });
 
-  it('Works with a custom selector',  () => {
+  it('Works with a custom selector', () => {
     const selector = new Selector('@media (prefers-color-scheme: light)');
     const primaryToken = new Token('primary', 'value');
     selector.addToken(primaryToken);
     const output = selector.build();
-    expect(output.startsWith('@media (prefers-color-scheme: light)')).toBeTruthy();
+    expect(
+      output.startsWith('@media (prefers-color-scheme: light)'),
+    ).toBeTruthy();
     expect(output).toContain('--color-primary: value;');
   });
-
 });
