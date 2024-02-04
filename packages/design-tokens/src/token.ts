@@ -1,4 +1,5 @@
 import { MediaQuery } from './mediaQuery.js';
+import { CssValue } from './types.js';
 import { camelCase } from './util.js';
 export class Token {
   queries = new Set<MediaQuery>();
@@ -7,7 +8,7 @@ export class Token {
 
   constructor(
     public key: string,
-    value: string | number | Token,
+    value: CssValue,
     public type = '',
   ) {
     this.value = typeof value === 'number' ? `${value}px` : value;
@@ -22,6 +23,10 @@ export class Token {
     this.queries.add(mq);
 
     return this;
+  }
+
+  get refName() {
+    return this.getCssKey().slice(2).replace(/-/g, '.');
   }
 
   getCssKey() {

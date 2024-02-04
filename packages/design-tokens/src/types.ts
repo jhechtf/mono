@@ -1,7 +1,7 @@
 import { Token } from './token.js';
 
 export type CssValue = number | string | Token;
-export type SubToken = Record<number, CssValue>;
+export type SubToken = Record<string | number, CssValue>;
 export type TokenMap = Record<string, CssValue | SubToken>;
 
 export interface TypeMap {
@@ -15,13 +15,6 @@ export type Config = TypeMap & {
 };
 
 export type CConfig = {
-  [key: string]:
-    | number
-    | string
-    | Token
-    | {
-        [key: string]: number | string | Token;
-      };
   variants: {
     [query: string]: {
       [key: string]:
@@ -33,6 +26,14 @@ export type CConfig = {
           };
     };
   };
+} & {
+  [key: string]:
+    | number
+    | string
+    | Token
+    | {
+        [key: string]: number | string | Token;
+      };
 };
 
 /**
