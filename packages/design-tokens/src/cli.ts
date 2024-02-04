@@ -1,1 +1,3 @@
-console.info('please hold');
+export default function hi() {
+  console.info('hi');
+}

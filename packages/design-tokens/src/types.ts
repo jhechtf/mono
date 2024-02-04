@@ -1,4 +1,6 @@
-export type CssValue = number | string;
+import { Token } from './token.js';
+
+export type CssValue = number | string | Token;
 export type SubToken = Record<number, CssValue>;
 export type TokenMap = Record<string, CssValue | SubToken>;
 
