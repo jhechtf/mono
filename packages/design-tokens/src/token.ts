@@ -8,7 +8,7 @@ export class Token {
   constructor(
     public key: string,
     value: string | number | Token,
-    public type = 'color',
+    public type = '',
   ) {
     this.value = typeof value === 'number' ? `${value}px` : value;
   }
@@ -25,7 +25,7 @@ export class Token {
   }
 
   getCssKey() {
-    return `--${this.type}-${this.key}`;
+    return `--${this.type !== '' ? `${this.type}-` : ''}${this.key}`;
   }
   toCssValue(): string {
     if (this.value instanceof Token) return `var(${this.value.getCssKey()})`;
@@ -34,7 +34,7 @@ export class Token {
   }
   toJsToken() {
     return `export const ${camelCase(
-      `${this.type}-${this.key}`,
+      `${this.type !== '' ? `${this.type}-` : ''}${this.key}`,
     )} = 'var(${this.getCssKey()})'`;
   }
 }

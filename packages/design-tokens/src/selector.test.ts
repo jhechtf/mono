@@ -20,7 +20,7 @@ describe('Selector class', () => {
 
     const output = selector.build();
 
-    expect(output).toContain('--color-primary: value;');
+    expect(output).toContain('--primary: value;');
     expect(output).toContain('--size-secondary: 10px');
   });
 
@@ -32,6 +32,6 @@ describe('Selector class', () => {
     expect(
       output.startsWith('@media (prefers-color-scheme: light)'),
     ).toBeTruthy();
-    expect(output).toContain('--color-primary: value;');
+    expect(output).toContain('--primary: value;');
   });
 });

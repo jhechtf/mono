@@ -6,7 +6,7 @@ describe('strToObjects', () => {
     const a = strToObject('a[4]', 3);
     expect(a.a[4]).toBe(3);
     expect(a.a).toHaveLength(5);
-    expect(a.a.slice(0, 3).every((f) => f === undefined)).toBeTruthy();
+    expect(a.a.slice(0, 3).every(f => f === undefined)).toBeTruthy();
     expect(1).toBe(1);
 
     const b = strToObject('b[]', 7);

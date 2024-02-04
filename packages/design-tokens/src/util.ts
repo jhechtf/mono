@@ -1,5 +1,5 @@
 export function camelCase(str: string): string {
-  return str.replace(/(\w)-(\w)/, (_, a, b) => `${a}${b.toUpperCase()}`);
+  return str.replace(/(\w)-(\w)/g, (_, a, b) => `${a}${b.toUpperCase()}`);
 }
 
 export function normalizeCssQuery(str: string): string {

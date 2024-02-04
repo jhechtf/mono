@@ -27,15 +27,15 @@ describe('Stylesheet class', () => {
     const output = styles.build();
 
     expect(output.js).toStrictEqual(
-      "export const colorPrimary = 'var(--color-primary)';\n",
+      "export const primary = 'var(--primary)';\n",
     );
-    expect(output.css).toBe(':root {\n  --color-primary: blue;\n}\n\n');
-    expect(output.scss).toBe('\n$color-primary: blue !default;');
+    expect(output.css).toBe(':root {\n  --primary: blue;\n}\n\n');
+    expect(output.scss).toBe('\n$primary: blue !default;');
   });
 
   it('should work with media queries', () => {
     const styles = new Stylesheet();
-    const mq = new MediaQuery('prefers-color-scheme: dark');
+    const mq = new MediaQuery('prefers-scheme: dark');
     const primary = new Token('primary', 'blue');
 
     primary.addMediaQueryValue(mq, 'red');
@@ -44,11 +44,9 @@ describe('Stylesheet class', () => {
 
     const output = styles.build();
 
-    expect(output.js).toBe(
-      "export const colorPrimary = 'var(--color-primary)';\n",
-    );
+    expect(output.js).toBe("export const primary = 'var(--primary)';\n");
 
-    expect(output.css).toContain('--color-primary: blue');
+    expect(output.css).toContain('--primary: blue');
     const parsedCss = postcss.parse(output.css);
 
     expect(parsedCss.nodes).toHaveLength(2);
@@ -60,18 +58,18 @@ describe('Stylesheet class', () => {
     ];
 
     expect(decl.type).toBe('decl');
-    expect(decl.prop).toBe('--color-primary');
+    expect(decl.prop).toBe('--primary');
     expect(decl.value).toBe('blue');
 
     expect(parsedCss.nodes[1].type).toBe('atrule');
     const atRule = parsedCss.nodes[1] as postcss.AtRule;
-    expect(atRule.params).toBe('(prefers-color-scheme: dark)');
+    expect(atRule.params).toBe('(prefers-scheme: dark)');
     expect(atRule.nodes).toHaveLength(1);
     const [baseRule] = atRule.nodes as [postcss.Rule];
     expect(baseRule.selector).toBe(':root');
     const [mediaRuleDecl] = baseRule.nodes as [postcss.Declaration];
 
-    expect(mediaRuleDecl.prop).toBe('--color-primary');
+    expect(mediaRuleDecl.prop).toBe('--primary');
     expect(mediaRuleDecl.value).toBe('red');
   });
 
@@ -96,9 +94,9 @@ describe('Stylesheet class', () => {
     ];
     expect(blueNode.type).toBe('decl');
     expect(primaryNode.type).toBe('decl');
-    expect(blueNode.prop).toBe('--color-blue');
+    expect(blueNode.prop).toBe('--blue');
     expect(blueNode.value).toBe('blue');
-    expect(primaryNode.prop).toBe('--color-primary');
-    expect(primaryNode.value).toBe('var(--color-blue)');
+    expect(primaryNode.prop).toBe('--primary');
+    expect(primaryNode.value).toBe('var(--blue)');
   });
 });
