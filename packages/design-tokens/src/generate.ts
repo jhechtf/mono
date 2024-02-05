@@ -35,24 +35,20 @@ export async function buildStylesheet(config: Config): Promise<Stylesheet> {
 
         baseStylesheet.addToken(new Token(name, v, type));
       }
-    } else {
-      baseStylesheet.addToken(new Token(type, value));
-      console.info('hi', type, value);
-    }
+    } else baseStylesheet.addToken(new Token(type, value));
   }
 
-  console.info(baseStylesheet);
-
-  // if (config.variants) {
-  //   for (const [queryValue, map] of Object.entries(config.variants)) {
-  //     const query = new MediaQuery(queryValue);
-  //     for (const [type, kv] of Object.entries(map)) {
-  //       for (const [key, value] of Object.entries(kv))
-  //         query.addToken(new Token(key, value, type));
-  //     }
-  //     baseStylesheet.addQuery(query);
-  //   }
-  // }
+  if (config.variants) {
+    for (const [query, values] of Object.entries(config.variants)) {
+      const mq = new MediaQuery(query);
+      const tokens = parseKeyValuePairs(values);
+      tokens.forEach(token => {
+        mq.addToken(token);
+        baseStylesheet.addToken(token);
+      });
+      baseStylesheet.addQuery(mq);
+    }
+  }
 
   return baseStylesheet;
 }

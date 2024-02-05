@@ -44,11 +44,8 @@ export class Stylesheet implements TokenConsumer {
     } else {
       if (this.needsResolving.has(token.refName)) {
         const tokens = this.needsResolving.get(token.refName);
-        console.info('fix these tokens', tokens);
-        for (const t of tokens) {
-          t.value = token;
-          console.info('fixing token', t);
-        }
+        for (const t of tokens) t.value = token;
+
         this.needsResolving.delete(token.refName);
       }
     }
@@ -72,8 +69,22 @@ export class Stylesheet implements TokenConsumer {
     return this;
   }
 
+  resolveRefs() {
+    for (const [ref, tokens] of this.needsResolving.entries()) {
+      if (this.tokenRefs.has(ref)) {
+        const token = this.tokenRefs.get(ref);
+        tokens.forEach(t => (t.value = token));
+        this.needsResolving.delete(ref);
+      }
+    }
+  }
+
   build() {
+    // Try to resolve the references that might be remaining
+    this.resolveRefs();
+    // If after all that we have unresolved references, throw an error
     if (this.needsResolving.size > 0) throw new Error('Unresolved references');
+    // the object
     return {
       css: this.buildCss(),
       js: this.buildJs(),
