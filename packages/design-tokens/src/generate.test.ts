@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { buildStylesheet } from './generate.js';
 import type { Config } from './types.js';
+import { writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import postcss from 'postcss';
 
 describe('Generate functions', () => {
@@ -26,8 +28,6 @@ describe('Generate functions', () => {
 
     const stylesheetFromConfig = await buildStylesheet(config);
     const output = stylesheetFromConfig.build();
-    console.info(output);
-    console.info(output.css);
     const parsed = postcss.parse(output.css);
     expect(parsed.first.type).toBe('rule');
 

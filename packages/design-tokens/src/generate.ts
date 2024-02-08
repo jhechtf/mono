@@ -44,7 +44,7 @@ export async function buildStylesheet(config: Config): Promise<Stylesheet> {
       const tokens = parseKeyValuePairs(values);
       tokens.forEach(token => {
         mq.addToken(token);
-        baseStylesheet.addToken(token);
+        // baseStylesheet.addToken(token);
       });
       baseStylesheet.addQuery(mq);
     }
