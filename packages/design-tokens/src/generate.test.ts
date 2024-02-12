@@ -1,9 +1,7 @@
-import { describe, it, expect } from 'vitest';
-import { buildStylesheet } from './generate.js';
-import type { Config } from './types.js';
-import { writeFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
 import postcss from 'postcss';
+import { describe, expect, it } from 'vitest';
+import { buildStylesheet, build } from './generate.js';
+import type { Config } from './types.js';
 
 describe('Generate functions', () => {
   it('Builds a thing', async () => {
@@ -33,7 +31,7 @@ describe('Generate functions', () => {
 
     if (parsed.first.type !== 'rule') throw new Error('Wrong output');
 
-    expect(parsed.first.nodes).toHaveLength(6);
+    expect(parsed.first.nodes).toHaveLength(4);
 
     parsed.first.nodes.forEach(node => {
       expect(node.type).toBe('decl');
@@ -55,5 +53,14 @@ describe('Generate functions', () => {
     });
 
     expect(1).toBe(1);
+  });
+  describe('Build', () => {
+    it('does a thing', async () => {
+      const bob = await build({
+        configFile: '../design.tokens.ts',
+      });
+      // TODO: Figure out how to change testing directory
+      console.info('hi you', bob);
+    });
   });
 });

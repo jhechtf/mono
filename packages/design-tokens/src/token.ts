@@ -1,6 +1,7 @@
 import { MediaQuery } from './mediaQuery.js';
 import { CssValue } from './types.js';
 import { camelCase } from './util.js';
+
 export class Token {
   queries = new Set<MediaQuery>();
 

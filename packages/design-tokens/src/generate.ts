@@ -1,9 +1,52 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
+import { resolve, dirname } from 'node:path';
 import { Stylesheet } from './stylesheet.js';
 import { Token } from './token.js';
 import { Config, SubToken } from './types.js';
 import { MediaQuery } from './mediaQuery.js';
 
+export interface BuildArgs {
+  configFile?: string;
+  noJs?: boolean;
+  noScss?: boolean;
+  noCss?: boolean;
+}
+
+export async function build({
+  configFile = './design.tokens.ts',
+  noCss = false,
+  noJs = false,
+  noScss = false,
+}: BuildArgs) {
+  /**
+   * 1. Determine the config file, based on passed args
+   * 2. Generate the Stylesheet
+   * 3. Write out the files.
+   */
+
+  const fileName = resolve(import.meta.dirname, configFile);
+
+  const rawFile = await import(fileName).then(r => r.default);
+
+  const stylesheet = await buildStylesheet(rawFile);
+
+  const output = stylesheet.build();
+  console.info(output.css, output.js, output.scss);
+
+  const resp = await Promise.allSettled([
+    writeFile(resolve(dirname(fileName), 'tokens.css'), output.css),
+    writeFile(resolve(dirname(fileName), 'tokens.js'), output.js),
+    writeFile(resolve(dirname(fileName), 'tokens.scss'), output.scss),
+  ]);
+
+  return resp.every(r => r.status === 'fulfilled');
+}
+
+/**
+ *
+ * @param configFile file path.
+ * @returns
+ */
 export async function generate(configFile: string) {
   const configFileContents = await readFile(configFile);
   const configJson = JSON.parse(

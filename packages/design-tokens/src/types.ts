@@ -70,7 +70,7 @@ export const config = {
  * }
  */
 
-const makeConfig = <T extends Record<string, unknown>>(
+export const makeConfig = <T extends Record<string, unknown>>(
   config: WithReferences<T>,
 ) =>
   // TODO: resolve references at runtime here
