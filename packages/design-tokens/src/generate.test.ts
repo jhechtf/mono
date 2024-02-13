@@ -57,7 +57,7 @@ describe('Generate functions', () => {
   describe('Build', () => {
     it('does a thing', async () => {
       const bob = await build({
-        configFile: '../design.tokens.ts',
+        configFile: '../tests/build/base/design.tokens.ts',
       });
       // TODO: Figure out how to change testing directory
       console.info('hi you', bob);
