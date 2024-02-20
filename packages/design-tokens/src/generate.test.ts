@@ -1,7 +1,12 @@
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import postcss from 'postcss';
 import { describe, expect, it } from 'vitest';
-import { buildStylesheet, build } from './generate.js';
+import { build, buildStylesheet } from './generate.js';
 import type { Config } from './types.js';
+import { Token } from './token.js';
+import { Stylesheet } from './stylesheet.js';
+import { MediaQuery } from './mediaQuery.js';
 
 describe('Generate functions', () => {
   it('Builds a thing', async () => {
@@ -44,7 +49,6 @@ describe('Generate functions', () => {
           expect(node.value).toBe('var(--color-a)');
           break;
         case '--color-a':
-          console.info(node);
           expect(node.value).toBe('blue');
 
         // default:
@@ -54,13 +58,29 @@ describe('Generate functions', () => {
 
     expect(1).toBe(1);
   });
-  describe('Build', () => {
+  describe('Outputs files in the correct locations', () => {
     it('does a thing', async () => {
-      const bob = await build({
-        configFile: '../tests/build/base/design.tokens.ts',
+      const d = new Token('red-100', 'lightred');
+      const b = new Token('primary', '!red.100');
+      const s = new Stylesheet();
+      s.addToken(d);
+      const m = new MediaQuery('prefers-color-scheme: dark');
+      s.addQuery(m);
+      m.addToken(b);
+      const f = s.build();
+      console.info('Testing', f);
+      const output = await build({
+        configFile: '../tests/builds/base/design.tokens.ts',
       });
+
+      expect(output).toBeTruthy();
+      const cssFile = resolve(
+        import.meta.dirname,
+        '../tests/builds/base/tokens.css',
+      );
+
+      expect(existsSync(cssFile)).toBeTruthy();
       // TODO: Figure out how to change testing directory
-      console.info('hi you', bob);
     });
   });
 });

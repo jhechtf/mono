@@ -31,9 +31,7 @@ export class Stylesheet implements TokenConsumer {
     return this;
   }
 
-  addToken(token: Token, selector: Selector = this.#root) {
-    // If this is a reference to another token value, look it up and set it to
-    // that value, otherwise, add it to the de-referencing queue
+  addResolveRef(token: Token): Stylesheet {
     if (typeof token.value === 'string' && token.value.startsWith('!')) {
       const tokenName = token.value.slice(1);
       if (!this.needsResolving.has(tokenName))
@@ -41,7 +39,16 @@ export class Stylesheet implements TokenConsumer {
 
       const arr = this.needsResolving.get(tokenName);
       arr.push(token);
-    } else {
+    }
+    return this;
+  }
+
+  addToken(token: Token, selector: Selector = this.#root) {
+    // If this is a reference to another token value, look it up and set it to
+    // that value, otherwise, add it to the de-referencing queue
+    if (typeof token.value === 'string' && token.value.startsWith('!'))
+      this.addResolveRef(token);
+    else {
       if (this.needsResolving.has(token.refName)) {
         const tokens = this.needsResolving.get(token.refName);
         for (const t of tokens) t.value = token;
@@ -114,7 +121,7 @@ export class Stylesheet implements TokenConsumer {
   buildScss() {
     let output = '';
     for (const token of this.#root.tokens.values())
-      output += `\n$${token.getCssKey().slice(2)}: ${token.value} !default;`;
+      output += `\n$${token.getCssKey().slice(2)}: ${token.toCssValue()} !default;`;
     return output;
   }
 }

@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "vitest --coverage",
-    "test:ci": "vitest --changed --coverage --reporter=html",
+    "test:ci": "vitest run --changed --coverage --reporter=html",
     "build": "tsup src/index.ts"
   },
   "keywords": [

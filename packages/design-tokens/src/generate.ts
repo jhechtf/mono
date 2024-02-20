@@ -31,7 +31,6 @@ export async function build({
   const stylesheet = await buildStylesheet(rawFile);
 
   const output = stylesheet.build();
-  console.info(output.css, output.js, output.scss);
 
   const resp = await Promise.allSettled([
     writeFile(resolve(dirname(fileName), 'tokens.css'), output.css),
@@ -81,14 +80,21 @@ export async function buildStylesheet(config: Config): Promise<Stylesheet> {
     } else baseStylesheet.addToken(new Token(type, value));
   }
 
+  // We are now looking at media queries
   if (config.variants) {
+    // Get the query to use for the MediaQuery and the values which we will turn into Tokens
     for (const [query, values] of Object.entries(config.variants)) {
+      // Create the MediaQuery. because of how the MediaQuery constructor is setup
+      // there will only ever be 1 instance of the normalized media query value
       const mq = new MediaQuery(query);
+      // parses the values into tokens.
       const tokens = parseKeyValuePairs(values);
+      // Iterate over the tokens, adding each one to the MediaQuery
       tokens.forEach(token => {
         mq.addToken(token);
-        // baseStylesheet.addToken(token);
+        baseStylesheet.addResolveRef(token);
       });
+      // Add the MQ to the base stylesheet
       baseStylesheet.addQuery(mq);
     }
   }
