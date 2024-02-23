@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { Stylesheet } from './stylesheet.js';
 import { Token } from './token.js';
-import { Config, SubToken } from './types.js';
+import type { Config } from './types.js';
 import { MediaQuery } from './mediaQuery.js';
 
 export interface BuildArgs {

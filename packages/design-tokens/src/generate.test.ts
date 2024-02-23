@@ -11,12 +11,15 @@ import { MediaQuery } from './mediaQuery.js';
 describe('Generate functions', () => {
   it('Builds a thing', async () => {
     const config: Config = {
-      primary: '!color.a',
-      bob: '!color.a',
-      color: {
-        a: 'blue',
-        blues: {
-          300: '#11ff91',
+      tokens: {
+        primary: '!color.a',
+        bob: '!color.a',
+        waffle: '!color.b',
+        color: {
+          a: 'blue',
+          blues: {
+            300: '#11ff91',
+          },
         },
       },
       variants: {

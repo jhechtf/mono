@@ -33,6 +33,7 @@ export function formDataToObject(
       } else {
         if (pruneKeyNames && /\[.?\]/.test(key))
           key = key.replace(/\[.?\]/, '');
+
         ret[key] = all.map(v =>
           typeof v === 'string' ? stringToJSValue(v) : v,
         );
