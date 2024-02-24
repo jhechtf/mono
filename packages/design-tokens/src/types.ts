@@ -9,14 +9,11 @@ export type Config<
   };
 };
 
-export const bob = <T extends Record<string, unknown>>(config: Config<T>) =>
-  config.tokens as ResolveReferences<T>;
-
 export const makeConfig = <T extends Record<string, unknown>>(
   config: Config<T>,
 ) =>
   // TODO: resolve references at runtime here
-  config.tokens as ResolveReferences<T>;
+  config as Config<T> & ResolveReferences<T>;
 
 type WithReferences<T extends Record<string, unknown>> =
   ObjectKeyPaths<T> extends infer Keys extends string
@@ -27,7 +24,7 @@ type WithReferencesHelper<T, Keys extends string> = T extends object
   ? {
       [Key in keyof T]: T[Key] extends string
         ? // TODO: disallow circular references
-          Keys | (string & {})
+          Keys | (string & NonNullable<unknown>)
         : WithReferencesHelper<T[Key], Keys>;
     }
   : T;
@@ -62,19 +59,3 @@ type Get<T, K> = K extends `${infer Key}.${infer Rest}`
   : GetKey<T, K>;
 
 type GetKey<T, K> = K extends keyof T ? T[K] : never;
-
-const conf = makeConfig({
-  a: 'string',
-  b: '!a',
-  c: {
-    nested: 1,
-    b: 3,
-    v: {
-      deeply: {
-        nested: 'bob',
-      },
-    },
-  },
-  d: '!c.nested',
-  e: '!c.v.deeply.nested',
-});

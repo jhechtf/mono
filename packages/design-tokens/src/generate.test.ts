@@ -4,9 +4,6 @@ import postcss from 'postcss';
 import { describe, expect, it } from 'vitest';
 import { build, buildStylesheet } from './generate.js';
 import type { Config } from './types.js';
-import { Token } from './token.js';
-import { Stylesheet } from './stylesheet.js';
-import { MediaQuery } from './mediaQuery.js';
 
 describe('Generate functions', () => {
   it('Builds a thing', async () => {
@@ -63,15 +60,6 @@ describe('Generate functions', () => {
   });
   describe('Outputs files in the correct locations', () => {
     it('does a thing', async () => {
-      const d = new Token('red-100', 'lightred');
-      const b = new Token('primary', '!red.100');
-      const s = new Stylesheet();
-      s.addToken(d);
-      const m = new MediaQuery('prefers-color-scheme: dark');
-      s.addQuery(m);
-      m.addToken(b);
-      const f = s.build();
-      console.info('Testing', f);
       const output = await build({
         configFile: '../tests/builds/base/design.tokens.ts',
       });

@@ -27,7 +27,6 @@ export async function build({
   const fileName = resolve(import.meta.dirname, configFile);
 
   const rawFile = await import(fileName).then(r => r.default);
-
   const stylesheet = await buildStylesheet(rawFile);
 
   const output = stylesheet.build();
@@ -51,6 +50,7 @@ export async function generate(configFile: string) {
   const configJson = JSON.parse(
     configFileContents.toString(),
   ) as unknown as Config;
+  console.info('from generate ?');
   const stylesheet = await buildStylesheet(configJson);
 
   return stylesheet;
@@ -64,13 +64,16 @@ export async function generate(configFile: string) {
 export async function buildStylesheet(config: Config): Promise<Stylesheet> {
   const baseStylesheet = new Stylesheet();
 
-  for (const [type, value] of Object.entries(config)) {
-    if (type === 'variants') continue;
+  console.info('JIM', config, import.meta.filename);
 
+  for (const [type, value] of Object.entries(config.tokens)) {
     if (typeof value === 'object') {
       for (const [name, v] of Object.entries(value)) {
         if (typeof v === 'object') {
-          const tmp = parseKeyValuePairs(v as SubToken, [type, name]);
+          const tmp = parseKeyValuePairs(v as Record<string, unknown>, [
+            type,
+            name,
+          ]);
           baseStylesheet.addTokens(undefined, ...tmp);
           continue;
         }
@@ -102,12 +105,18 @@ export async function buildStylesheet(config: Config): Promise<Stylesheet> {
   return baseStylesheet;
 }
 
-function parseKeyValuePairs(kv: SubToken, basis: string[] = []): Token[] {
+function parseKeyValuePairs(
+  kv: Record<string, unknown>,
+  basis: string[] = [],
+): Token[] {
   const returned: Token[] = [];
   for (const [key, value] of Object.entries(kv)) {
     if (typeof value === 'object' && !(value instanceof Token)) {
       returned.push(
-        ...parseKeyValuePairs(value as SubToken, basis.concat(key)),
+        ...parseKeyValuePairs(
+          value as Record<string, unknown>,
+          basis.concat(key),
+        ),
       );
     } else returned.push(new Token(key, value, basis.join('-')));
   }
