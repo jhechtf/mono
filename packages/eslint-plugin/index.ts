@@ -27,7 +27,7 @@ const plugin = {
         ],
         curly: ['error', 'multi-or-nest'],
         'arrow-body-style': ['error', 'as-needed'],
-        'arrow-parens': ['error', 'as-needed'],
+        'arrow-parens': ['off'],
         '@jhecht/max-static-destructure-depth': ['error', 2],
         '@jhecht/prefer-destructuring': [
           'error',

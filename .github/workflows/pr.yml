@@ -29,6 +29,11 @@ jobs:
           node-version: '18.x'
       - run: pnpm i --frozen-lockfile
       - run: pnpm test:changed
+      - name: Upload code coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-report
+          path: '**/html/**/*'
   format:
     name: Format checker
     runs-on: ubuntu-latest

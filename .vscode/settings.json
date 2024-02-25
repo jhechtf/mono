@@ -7,5 +7,9 @@
   "lnf.aliases": {
     "$/": "${workspaceRoot}/",
     "$packages/": "${workspaceRoot}/packages/"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

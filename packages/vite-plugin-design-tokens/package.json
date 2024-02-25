@@ -1,0 +1,23 @@
+{
+  "name": "@jhecht/vite-plugin-design-tokens",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "echo hi",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [
+    "vite-plugin"
+  ],
+  "author": "jhechtf+npm@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "@jhecht/eslint-plugin": "workspace:*",
+    "@jhecht/typescript-config": "workspace:*",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "vite": "^5.0.12"
+  }
+}
