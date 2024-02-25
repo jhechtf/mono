@@ -1,6 +1,7 @@
 import { MediaQuery } from './mediaQuery.js';
-import { CssValue } from './types.js';
 import { camelCase } from './util.js';
+
+export type CssValue = string | number | Token;
 
 export class Token {
   queries = new Set<MediaQuery>();
@@ -15,7 +16,7 @@ export class Token {
     this.value = typeof value === 'number' ? `${value}px` : value;
   }
 
-  addMediaQueryValue(mq: MediaQuery, value: string | Token): Token {
+  addMediaQueryValue(mq: MediaQuery, value: CssValue): Token {
     if (typeof value === 'string')
       value = new Token(this.key, value, this.type);
     else value = new Token(this.key, value);
@@ -30,18 +31,22 @@ export class Token {
     return this.getCssKey().slice(2).replace(/-/g, '.');
   }
 
+  get jsTokenName() {
+    return camelCase(`${this.type !== '' ? `${this.type}-` : ''}${this.key}`);
+  }
+
   getCssKey() {
     return `--${this.type !== '' ? `${this.type}-` : ''}${this.key}`;
   }
+
   toCssValue(): string {
     if (this.value instanceof Token) return `var(${this.value.getCssKey()})`;
 
     return this.value;
   }
+
   toJsToken() {
-    return `export const ${camelCase(
-      `${this.type !== '' ? `${this.type}-` : ''}${this.key}`,
-    )} = 'var(${this.getCssKey()})'`;
+    return `export const ${this.jsTokenName} = 'var(${this.getCssKey()})'`;
   }
 }
 
