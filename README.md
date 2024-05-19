@@ -1,81 +1,35 @@
-# Turborepo starter
+# Jhecht's Utility Mono Repo
 
-This is an official starter Turborepo.
+This is a repo that holds all of my random projects.
 
-## Using this example
+## Projects
 
-Run the following command:
+Currently there are 5 projects in the repo:
 
-```sh
-npx create-turbo@latest
-```
+1. [ArkType Utils](#arktype-utils)
+2. [Design Tokens](#design-tokens)
+3. [Eslint Plugin](#eslint-plugin)
+4. [Typescript Config](#typescript-config)
+5. [Vite Plugin Design Tokens](#vite-plugin-design-tokens)
 
-## What's inside?
+## ArkType Utils
 
-This Turborepo includes the following packages/apps:
+[ArkType](https://arktpe.io) is a 1:1 TypeScript validation library. I utilize it heavily, so I created some wrapper utils around it
 
-### Apps and Packages
+## Design Tokens
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+This is a port over of [jhechtf/design-tokens](https://github.com/jhechtf/design-tokens). The original project was written for
+Deno, but with Deno basically becoming a sandbox for Node, I've decided to move the library over to Node fully, allowing for the
+[Vite Plugin](#vite-plugin-design-tokens)
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Eslint Plugin
 
-### Utilities
+Common ESLint stuff I use.
 
-This Turborepo has some additional tools already setup for you:
+## TypeScript Config
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+Common TypeScript Config I use for most projects
 
-### Build
+## Vite Plugin Design Tokens
 
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+WIP - added in eagerly.
