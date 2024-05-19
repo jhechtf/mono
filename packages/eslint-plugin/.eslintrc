@@ -4,6 +4,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:eslint-plugin/recommended"
   ],
+  "ignorePatterns": ["**/*.d.ts"],
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint/eslint-plugin",
