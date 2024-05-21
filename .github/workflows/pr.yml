@@ -3,6 +3,31 @@ on:
   pull_request:
 
 jobs:
+  changesets:
+    name: Changeset Present?
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: git fetch origin main:main
+      - uses: pnpm/action-setup@v2
+        name: Install PNPM
+        with:
+          versions: 8
+      - uses: actions/cache@v3
+        name: setup PNPM cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os}}-pnpm-store
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm changeset:ci
+
   test:
     name: Test changed
     runs-on: ubuntu-latest

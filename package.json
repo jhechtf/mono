@@ -5,13 +5,16 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
+    "lint:fix": "turbo lint:fix",
     "prettier:format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prettier:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "publish-packages": "turbo run build lint test && changeset version && changeset publish",
     "test": "turbo run test",
-    "test:changed": "turbo run --filter=[main...HEAD] test:ci"
+    "test:changed": "turbo run --filter=[main...HEAD] test:ci",
+    "changeset:ci": "changeset status"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@jhecht/eslint-plugin": "workspace:*",
     "@jhecht/typescript-config": "workspace:*",
     "prettier": "^3.1.1",
@@ -20,8 +23,5 @@
   "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=18"
-  },
-  "dependencies": {
-    "@changesets/cli": "^2.27.1"
   }
 }
