@@ -1,0 +1,23 @@
+{
+  "name": "@jhecht/arktype-drizzle",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Add build script here'",
+    "test": "vitest run",
+    "test:watch": "vitest --coverage",
+    "lint": "echo 'Add lint script here'"
+  },
+  "peerDependencies": {
+    "arktype": "^2.0.4",
+    "drizzle-orm": "0.32.1"
+  },
+  "devDependencies": {
+    "@jhecht/eslint-plugin": "workspace:*",
+    "@jhecht/typescript-config": "workspace:*",
+    "@vitest/coverage-v8": "^1.2.2",
+    "arktype": "^2.0.4",
+    "vitest": "^1.1.3"
+  }
+}
