@@ -1,6 +1,6 @@
-import { expect, describe, it } from 'vitest';
-import { formDataToObject, validateFormData } from './formData.js';
 import { type } from 'arktype';
+import { describe, expect, it } from 'vitest';
+import { formDataToObject, validateFormData } from './formData.js';
 
 describe('formDataToObject', () => {
   it('Should parse empty formData object', () => {
@@ -79,10 +79,12 @@ describe('formDataToObject', () => {
     const fd = new FormData();
     fd.append('names[]', 'bob');
     fd.append('ages[]', '13');
+    fd.append('title', 'Fantastic Voyage');
 
     expect(formDataToObject(fd)).toStrictEqual({
       names: ['bob'],
       ages: [13],
+      title: 'Fantastic Voyage',
     });
   });
 
