@@ -10,7 +10,7 @@
     "access": "public"
   },
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
     "prelint": "pnpm build",
     "lint": "eslint **/*.ts",
     "build": "tsup",

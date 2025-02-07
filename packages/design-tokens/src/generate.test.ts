@@ -38,7 +38,7 @@ describe('Generate functions', () => {
 
     expect(parsed.first.nodes).toHaveLength(5);
 
-    parsed.first.nodes.forEach(node => {
+    parsed.first.nodes.forEach((node) => {
       expect(node.type).toBe('decl');
       if (node.type !== 'decl') throw new Error('Node is wrong type');
       switch (node.prop) {

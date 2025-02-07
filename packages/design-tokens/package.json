@@ -16,7 +16,7 @@
     "access": "public"
   },
   "scripts": {
-    "test": "vitest --coverage",
+    "test": "vitest run --coverage",
     "test:ci": "vitest run --changed --coverage --reporter=html",
     "build": "tsup src/index.ts"
   },

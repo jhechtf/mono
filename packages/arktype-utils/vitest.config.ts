@@ -4,5 +4,6 @@ export default defineConfig({
   test: {
     // Need this to use File in the tests
     environment: 'jsdom',
+    includeSource: ['src/**/*.ts'],
   },
 });

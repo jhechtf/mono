@@ -26,7 +26,7 @@ export async function build({
 
   const fileName = resolve(import.meta.dirname, configFile);
 
-  const rawFile = await import(fileName).then(r => r.default);
+  const rawFile = await import(fileName).then((r) => r.default);
   const stylesheet = await buildStylesheet(rawFile);
 
   const output = stylesheet.build();
@@ -37,7 +37,7 @@ export async function build({
     writeFile(resolve(dirname(fileName), 'tokens.scss'), output.scss),
   ]);
 
-  return resp.every(r => r.status === 'fulfilled');
+  return resp.every((r) => r.status === 'fulfilled');
 }
 
 /**
@@ -91,7 +91,7 @@ export async function buildStylesheet(config: Config): Promise<Stylesheet> {
       // parses the values into tokens.
       const tokens = parseKeyValuePairs(values);
       // Iterate over the tokens, adding each one to the MediaQuery
-      tokens.forEach(token => {
+      tokens.forEach((token) => {
         mq.addToken(token);
         baseStylesheet.addResolveRef(token);
       });

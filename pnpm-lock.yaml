@@ -39,8 +39,8 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2(vitest@1.2.2)
       arktype:
-        specifier: ^1.0.28-alpha
-        version: 1.0.28-alpha
+        specifier: ^2.0.4
+        version: 2.0.4
       eslint:
         specifier: ^7.11.0
         version: 7.32.0
@@ -145,6 +145,16 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.22
+    dev: true
+
+  /@ark/schema@0.39.0:
+    resolution: {integrity: sha512-LQbQUb3Sj461LgklXObAyUJNtsUUCBxZlO2HqRLYvRSqpStm0xTMrXn51DwBNNxeSULvKVpXFwoxiSec9kwKww==}
+    dependencies:
+      '@ark/util': 0.39.0
+    dev: true
+
+  /@ark/util@0.39.0:
+    resolution: {integrity: sha512-90APHVklk8BP4kku7hIh1BgrhuyKYqoZ4O7EybtFRo7cDl9mIyc/QUbGvYDg//73s0J2H0I/gW9pzroA1R4IBQ==}
     dev: true
 
   /@babel/code-frame@7.12.11:
@@ -1239,8 +1249,11 @@ packages:
       sprintf-js: 1.0.3
     dev: true
 
-  /arktype@1.0.28-alpha:
-    resolution: {integrity: sha512-cjakiZXXa4+y1OL0oFk0HRjIrEwJhNNvkqXkiR53SOpyKHwSqFrjrQkY4K8MlnQybRhd/y4OG4NVDR1Ea4WDkQ==}
+  /arktype@2.0.4:
+    resolution: {integrity: sha512-S68rWVDnJauwH7/QCm8zCUM3aTe9Xk6oRihdcc3FSUAtxCo/q1Fwq46JhcwB5Ufv1YStwdQRz+00Y/URlvbhAQ==}
+    dependencies:
+      '@ark/schema': 0.39.0
+      '@ark/util': 0.39.0
     dev: true
 
   /array-buffer-byte-length@1.0.0:
