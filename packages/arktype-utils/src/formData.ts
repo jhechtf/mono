@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { Problems, Type } from 'arktype';
+import type { Type } from 'arktype';
+import { type } from 'arktype';
 
 type EntriesTouple = [string, FormDataEntryValue];
 
@@ -85,7 +86,7 @@ export function formDataToObject(
         iterator = iterator.slice(0, iterator.indexOf('['));
 
       // Set the iterator value on returned object
-      ret[iterator] = all.map(v =>
+      ret[iterator] = all.map((v) =>
         typeof v === 'string' ? stringToJSValue(v) : v,
       );
     } else {
@@ -105,13 +106,7 @@ export function formDataToObject(
         info.set(name, magic);
       }
 
-      // If the index is '', it means we were given something like `name[]`, or `age[]`
-      if (index === '') {
-        // Get all the values for this iterator
-        const all = fd.getAll(iterator);
-        // Loop over
-        for (const a of all) magic.add('', a as string);
-      } else magic.add(index, value);
+      magic.add(index, value);
     }
   }
 
@@ -159,9 +154,47 @@ export function validateFormData<T extends Type<any>>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): T extends Type<infer R> ? R : any {
   const fdo = formDataToObject(fd, filterFn);
-  const { data, problems } = obj(fdo);
+  const data = obj(fdo);
 
-  if (data) return data;
+  if (data instanceof type.errors) throw data;
 
-  throw problems;
+  return data;
+}
+
+// This section is here because i don't want to publish the makeMagicObject function
+// But I should still test it
+if (import.meta.vitest) {
+  const { it, expect, describe } = import.meta.vitest;
+  describe('makeMagicObject', () => {
+    it('Correctly interprets arrays without keys', () => {
+      const obj = makeMagicObject();
+      obj.add('', 'bob');
+      obj.add('', 'jon');
+
+      expect(obj.type).toBe('array');
+      expect(obj.toJS()).toStrictEqual(['bob', 'jon']);
+    });
+
+    it('Correctly interprets arrays with keys', () => {
+      const obj = makeMagicObject();
+      obj.add('0', 'bob');
+      obj.add('2', 'jon');
+      obj.add('4', 'dave');
+
+      expect(obj.type).toBe('array');
+      expect(obj.toJS()).toEqual(['bob', undefined, 'jon', undefined, 'dave']);
+    });
+
+    it('Correctly interprets objects', () => {
+      const obj = makeMagicObject([
+        ['1', 'jim'],
+        ['fred', 'and george'],
+      ]);
+      expect(obj.type).toBe('object');
+      expect(obj.toJS()).toEqual({
+        '1': 'jim',
+        fred: 'and george',
+      });
+    });
+  });
 }

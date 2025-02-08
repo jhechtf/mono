@@ -11,7 +11,7 @@ export default function designTokenPlugin(): Plugin {
       if ([virtualModuleCss, virtualModuleJs].includes(id)) return '\0' + id;
     },
     load(id) {
-      if ([virtualModuleCss, virtualModuleJs].map(v => '\0' + v).includes(id))
+      if ([virtualModuleCss, virtualModuleJs].map((v) => '\0' + v).includes(id))
         return 'export const msg = "hello, from the virtual module!"; ';
     },
     transform(code, id) {

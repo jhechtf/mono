@@ -27,7 +27,7 @@ export class Stylesheet implements TokenConsumer {
   }
 
   addSelectors(...args: Selector[]) {
-    args.forEach(sel => this.addSelector(sel));
+    args.forEach((sel) => this.addSelector(sel));
     return this;
   }
 
@@ -66,7 +66,7 @@ export class Stylesheet implements TokenConsumer {
 
   addTokens(selector: Selector = this.#root, ...tokens: Token[]) {
     if (!this.selectors.has(selector)) this.selectors.add(selector);
-    tokens.forEach(token => {
+    tokens.forEach((token) => {
       this.addToken(token, selector);
       // console.info(token);
       // selector.addToken(token);
@@ -85,7 +85,7 @@ export class Stylesheet implements TokenConsumer {
     for (const [ref, tokens] of this.needsResolving.entries()) {
       if (this.tokenRefs.has(ref)) {
         const token = this.tokenRefs.get(ref);
-        tokens.forEach(t => (t.value = token));
+        tokens.forEach((t) => (t.value = token));
         this.needsResolving.delete(ref);
       }
     }

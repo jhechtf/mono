@@ -6,5 +6,8 @@
   "extends": [
     "plugin:@jhecht/recommended",
     "plugin:@typescript-eslint/recommended"
-  ]
+  ],
+  "rules": {
+    "arrow-parens": ["error", "as-needed"]
+  }
 }

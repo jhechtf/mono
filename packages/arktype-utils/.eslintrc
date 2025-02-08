@@ -8,6 +8,7 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "arrow-parens": ["warn", "always"]
+    "arrow-parens": ["warn", "always"],
+    "@jhecht/max-static-destructure-depth": ["error", 3]
   }
 }

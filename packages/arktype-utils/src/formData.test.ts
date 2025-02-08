@@ -88,6 +88,29 @@ describe('formDataToObject', () => {
     });
   });
 
+  it('Should work with specified keys in arrays', () => {
+    const fd = new FormData();
+    fd.append('names[0]', 'bob');
+    fd.append('names[2]', 'joe');
+    fd.append('names[1]', 'rob');
+    expect(formDataToObject(fd)).toStrictEqual({
+      names: ['bob', 'rob', 'joe'],
+    });
+  });
+
+  it('Should work with objects', () => {
+    const fd = new FormData();
+    fd.append('locations[london]', '24');
+    fd.append('locations[new_york]', '77');
+
+    expect(formDataToObject(fd)).toStrictEqual({
+      locations: {
+        london: 24,
+        new_york: 77,
+      },
+    });
+  });
+
   it('Should work with File objects', () => {
     const fd = new FormData();
     fd.set('file', new File([], 'testing.txt'));
@@ -130,7 +153,7 @@ describe('validateFormData', () => {
     fd.append('file-upload', f);
 
     const passSchema = type({
-      emails: 'email[]',
+      emails: 'string.email[]',
       something: 'boolean',
       'something-else': 'bigint',
       'file-upload': fileType,

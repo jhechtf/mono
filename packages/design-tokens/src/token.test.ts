@@ -15,7 +15,7 @@ describe('Tokens class', () => {
   });
 
   it('Works for nested tokens', () => {
-    const [blueToken, redToken] = ['blue', 'red'].map(t => new Token(t, t));
+    const [blueToken, redToken] = ['blue', 'red'].map((t) => new Token(t, t));
     expect(blueToken.getCssKey()).toBe('--blue');
     expect(blueToken.toCssValue()).toBe('blue');
     expect(redToken.getCssKey()).toBe('--red');
