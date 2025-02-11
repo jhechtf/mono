@@ -8,7 +8,7 @@ type FilterFn = (a: EntriesTouple) => boolean;
 
 type FormDataObjectEntry = FormDataEntryValue | number | boolean | bigint;
 
-const nameKeyExtractor = /(?<name>[a-zA-z]+[a-zA-Z-]+)\[(?<index>.*)\]/;
+const nameKeyExtractor = /(?<name>.*)\[(?<index>.*)\]/;
 const digitCheck = /^\d+$/;
 
 type MagicObject = {
