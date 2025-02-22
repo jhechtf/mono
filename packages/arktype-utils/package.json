@@ -13,7 +13,8 @@
     "test": "vitest --coverage",
     "test:ci": "vitest run --coverage --changed",
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "lint": "eslint src/**/*.ts"
+    "lint": "eslint src/**/*.ts",
+    "prepublishOnly": "pnpm run build"
   },
   "engines": {
     "node": ">=18.0.0"

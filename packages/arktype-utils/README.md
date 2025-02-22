@@ -67,6 +67,48 @@ const obj = formDataToObject(fd);
 console.info(obj);
 ```
 
+You can also specify a nested key value, turning the result into either an object or an array depending on whether or not those keys are numerical.
+
+```ts
+import { formDataToObject } from '@jhecht/artktype-utils';
+
+const fd = new FormData();
+fd.append('obj[id]', 'uuid');
+fd.append('obj[name]', "J'onn");
+fd.append('obj[age]', '307');
+
+const obj = formDataToObject(fd);
+/**
+ * {
+ *  obj: {
+ *    id: 'uuid',
+ *    name: 'J\'onn',
+ *    age: 307,
+ *  }
+ * }
+ */
+console.info(obj);
+```
+
+```ts
+import { formDataToObject } from '@jhecht/artktype-utils';
+
+const fd = new FormData();
+fd.append('name[0]', 'Bruce');
+fd.append('name[1]', 'Clark');
+fd.append('name[3]', 'Barry');
+fd.append('name[2]', "J'onn");
+
+const obj = formDataToObject(fd);
+
+/**
+ * {
+ *  name: ['Bruce', 'Clark', 'J\'onn', 'Barry']
+ * }
+ */
+console.info(obj);
+```
+
 ## Validating Data with ArkType
 
 I created this wrapper, which `throws` if there are any `error` values. It takes two arguments, one being a `FormData` object, and the other a `type` or `scope` call from ArkType, which serves as the validator for the object-ified `FormData`.

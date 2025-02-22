@@ -1,9 +1,18 @@
 import { describe, expect, it } from 'vitest';
-// import { strToObject } from './strToObject.js';
+import { strToObject } from './strToObject.js';
 
 describe('strToObjects', () => {
   it('does a thing', () => {
     expect(1).toBe(1);
+    expect(strToObject('a', 3)).toStrictEqual({
+      a: 3,
+    });
+
+    expect(strToObject('a.b', 3)).toStrictEqual({
+      a: {
+        b: 3,
+      },
+    });
     // const a = strToObject('a[4]', 3);
     // expect(a.a[4]).toBe(3);
     // expect(a.a).toHaveLength(5);
