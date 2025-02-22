@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Type } from 'arktype';
-import { type } from 'arktype';
 
 type EntriesTouple = [string, FormDataEntryValue];
 
@@ -147,21 +146,17 @@ function stringToJSValue(str: string): NonFileFormEntries<FormDataObjectEntry> {
  * @returns
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function validateFormData<T extends Type<any>>(
+export function validateFormData<T extends Type<any, any>>(
   fd: FormData,
   obj: T,
   filterFn?: FilterFn,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): T extends Type<infer R> ? R : any {
+): Type['infer'] {
   const fdo = formDataToObject(fd, filterFn);
-  const data = obj(fdo);
-
-  if (data instanceof type.errors) throw data;
-
-  return data;
+  return obj.assert(fdo);
 }
 
-// This section is here because i don't want to publish the makeMagicObject function
+// This section is here because I don't want to publish the makeMagicObject function
 // But I should still test it
 if (import.meta.vitest) {
   const { it, expect, describe } = import.meta.vitest;
