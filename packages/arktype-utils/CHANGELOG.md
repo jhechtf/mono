@@ -1,5 +1,14 @@
 # @jhecht/arktype-utils
 
+## 1.0.3
+
+### Patch Changes
+
+- 287597a: Fixes type for validateFormData function.
+
+  Previously the type was set incorrectly to use `Type['infer']` and not
+  `T['infer']`, as it should have been. The dangers of writing and reviewing your own code!
+
 ## 1.0.2
 
 ### Patch Changes
