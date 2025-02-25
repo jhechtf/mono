@@ -151,7 +151,7 @@ export function validateFormData<T extends Type<any, any>>(
   obj: T,
   filterFn?: FilterFn,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Type['infer'] {
+): T['infer'] {
   const fdo = formDataToObject(fd, filterFn);
   return obj.assert(fdo);
 }
