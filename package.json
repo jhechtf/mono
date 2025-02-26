@@ -11,7 +11,9 @@
     "publish-packages": "turbo run build lint test && changeset version && changeset publish",
     "test": "turbo run test",
     "test:changed": "turbo run --filter=[main...HEAD] test:ci",
-    "changeset:ci": "changeset status"
+    "changeset:ci": "changeset status",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
