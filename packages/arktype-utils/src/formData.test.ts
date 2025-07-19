@@ -120,6 +120,41 @@ describe('formDataToObject', () => {
   });
 });
 
+describe('formDataToObject - nested keys', () => {
+  it('parses nested objects with dot notation', () => {
+    const formData = new FormData();
+    formData.append('payments.id1.location', 'England');
+    formData.append('payments.id1.age', '37');
+    formData.append('payments.id2.location', 'New York');
+    formData.append('payments.id2.age', '81');
+    formData.append('payments.id2.name', 'Steve');
+    const obj = formDataToObject(formData);
+    expect(obj).toMatchObject({
+      payments: {
+        id1: { location: 'England', age: 37 },
+        id2: { location: 'New York', age: 81, name: 'Steve' },
+      },
+    });
+  });
+
+  it('parses nested arrays and objects with bracket/dot notation', () => {
+    const formData = new FormData();
+    formData.append('locations[].name', 'England');
+    formData.append('locations[].members[]', 'John');
+    formData.append('locations[].members[]', 'Joe');
+    formData.append('locations[].name', 'France');
+    formData.append('locations[].members[]', 'Francis');
+    formData.append('locations[].members[]', 'Joe2');
+    const obj = formDataToObject(formData);
+    expect(obj).toMatchObject({
+      locations: [
+        { name: 'England', members: ['John', 'Joe'] },
+        { name: 'France', members: ['Francis', 'Joe2'] },
+      ],
+    });
+  });
+});
+
 describe('validateFormData', () => {
   const fileType = type(['instanceof', File]);
   it('Validates simple object', () => {

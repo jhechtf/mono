@@ -109,6 +109,43 @@ const obj = formDataToObject(fd);
 console.info(obj);
 ```
 
+### Deeply Nested Objects and Arrays
+
+`formDataToObject` supports advanced dot and bracket notation for deeply nested structures, including arrays of objects and nested arrays:
+
+```ts
+const fd = new FormData();
+fd.append('payments.id1.location', 'England');
+fd.append('payments.id1.age', '37');
+fd.append('payments.id2.location', 'New York');
+fd.append('payments.id2.age', '81');
+fd.append('payments.id2.name', 'Steve');
+
+const obj = formDataToObject(fd);
+// {
+//   payments: {
+//     id1: { location: 'England', age: 37 },
+//     id2: { location: 'New York', age: 81, name: 'Steve' },
+//   }
+// }
+
+const fd2 = new FormData();
+fd2.append('locations[].name', 'England');
+fd2.append('locations[].members[]', 'John');
+fd2.append('locations[].members[]', 'Joe');
+fd2.append('locations[].name', 'France');
+fd2.append('locations[].members[]', 'Francis');
+fd2.append('locations[].members[]', 'Joe2');
+
+const obj2 = formDataToObject(fd2);
+// {
+//   locations: [
+//     { name: 'England', members: ['John', 'Joe'] },
+//     { name: 'France', members: ['Francis', 'Joe2'] }
+//   ]
+// }
+```
+
 ## Validating Data with ArkType
 
 I created this wrapper, which `throws` if there are any `error` values. It takes two arguments, one being a `FormData` object, and the other a `type` or `scope` call from ArkType, which serves as the validator for the object-ified `FormData`.
