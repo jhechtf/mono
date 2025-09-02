@@ -57,7 +57,8 @@ function parseKeyPath(key: string): (string | number)[] {
   let buffer = '';
   let inBracket = false;
   for (let i = 0; i < key.length; i++) {
-    const [char] = key;
+    // eslint-disable-next-line @jhecht/prefer-destructuring
+    const char = key[i];
     if (char === '[') {
       if (buffer) {
         path.push(buffer);
