@@ -171,7 +171,11 @@ export function formDataToObject(
   // For grouping array objects by their base path
   const arrayGroups = new Map<
     string,
-    { current: Record<string, unknown>; arr: Record<string, unknown>[] }
+    {
+      current: Record<string, unknown>;
+      arr: Record<string, unknown>[];
+      lastField?: string;
+    }
   >();
   // For collecting repeated simple keys and top-level arrays
   const simpleArrays = new Map<string, unknown[]>();
@@ -191,13 +195,23 @@ export function formDataToObject(
     const arrayIdx = path.findIndex((p) => p === '');
     if (arrayIdx !== -1) {
       const basePath = path.slice(0, arrayIdx).join('.');
-      if (!arrayGroups.has(basePath))
-        arrayGroups.set(basePath, { current: {}, arr: [] });
+      if (!arrayGroups.has(basePath)) {
+        arrayGroups.set(basePath, {
+          current: {},
+          arr: [],
+          lastField: undefined,
+        });
+      }
       const group = arrayGroups.get(basePath)!;
-      // If this is a new object in the array, push current and start new
+      const thisField = String(path[arrayIdx + 1]);
+      // Only push current object when a non-array field repeats
+      const isArrayField =
+        (path.length === arrayIdx + 3 && path[arrayIdx + 2] === '') ||
+        String(path[arrayIdx + 1]).endsWith('[]');
       if (
         Object.keys(group.current).length > 0 &&
-        path[arrayIdx + 1] === 'name'
+        Object.prototype.hasOwnProperty.call(group.current, thisField) &&
+        !isArrayField
       ) {
         group.arr.push(group.current);
         group.current = {};
