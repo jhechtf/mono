@@ -118,6 +118,23 @@ describe('formDataToObject', () => {
     const obj = formDataToObject(fd);
     expect(obj.file).toBeInstanceOf(File);
   });
+
+  it('Should work with complex arrays / object combinations', () => {
+    const fd = new FormData();
+    fd.append('bills[].id', 'id1');
+    fd.append('bills[].name', 'Rent');
+    fd.append('bills[].id', 'id2');
+    fd.append('bills[].name', 'Electricity');
+
+    const obj = formDataToObject(fd);
+
+    expect(obj).toStrictEqual({
+      bills: [
+        { id: 'id1', name: 'Rent' },
+        { id: 'id2', name: 'Electricity' },
+      ],
+    });
+  });
 });
 
 describe('formDataToObject - nested keys', () => {
