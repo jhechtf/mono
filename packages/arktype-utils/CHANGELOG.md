@@ -1,5 +1,11 @@
 # @jhecht/arktype-utils
 
+## 1.1.2
+
+### Patch Changes
+
+- 41c62b2: Fixes bug not grouping items correctly
+
 ## 1.1.1
 
 ### Patch Changes
